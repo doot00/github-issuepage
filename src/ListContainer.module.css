@@ -1,0 +1,44 @@
+.listContainer {
+    padding: 0 32px;
+    margin-top: 24px;
+    height: 220px;
+}
+
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.listFilters {
+    margin-top: 20px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background: rgb(246, 248, 250) !important;
+    padding: 16px;
+    justify-content: start;
+}
+
+.input {
+    background: #f6f6fa;
+    border-radius: 6px;
+    border: 1px solid #d0d7de;
+    padding-left: 10px;
+    color: #57606a;
+    width: 60%;
+    margin-right: auto;
+    box-shadow: none;
+}
+
+
+.selected {
+    font-weight: 800;
+}
+
+
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    
+}
+

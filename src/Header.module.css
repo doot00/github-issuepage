@@ -1,0 +1,25 @@
+.header {
+    padding: 16px 32px 0px;
+    background: rgb(246, 248, 250);
+    box-shadow: inset 0 -1px 0 hsla(210, 18%, 87%, 1);
+    font-size: 14px;
+}
+
+.buttonContainer {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: gainsboro;
+    margin-left: 3px;
+}
+
+
