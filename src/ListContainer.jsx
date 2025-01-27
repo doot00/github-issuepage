@@ -1,4 +1,5 @@
 import cx from "clsx";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Button from "./components/Button";
 import styles from "./ListContainer.module.css";
@@ -7,16 +8,25 @@ import ListItemLayout from "./components/ListItemLayout";
 import ListFilter from "./components/ListFilter";
 import Pagination from "./components/Pagination";
 import OpenClosedFilter from "./components/OpenClosedFilter";
+import Footer from "./components/Footer";
 
 export default function ListContainer() {
   const [inputValue, setInputValue] = useState("is:pr is:open");
+  const [checked, setChecked] = useState(false);
   const [list, setList] = useState([]);
   const [page, setPage] = useState(1);
-  // const data = getData();
-  // const opendData = data.filter((d) => d.state === 'open');
-  // const closedData = data.filter((d) => d.state === 'closed');
+  const maxPage = 10;
 
-  // const MAX_PAGE = getData().totalCount // = 30 / 100 = 3.3333 = 4페이지까지 그려야 한다.
+  async function getData() {
+    const { data } = await axios.get(
+      `https://api.github.com/repos/facebook/react/issues`
+    );
+    setList(data); // data라는 객체 안에 30개 array로 있다.
+  }
+
+  useEffect(() => {
+    getData();
+  }, []); // componentDidMount(); 돔이 그려진 후에 getData가 실행된다.
 
   return (
     <>
@@ -38,35 +48,32 @@ export default function ListContainer() {
           </Button>
         </div>
         <OpenClosedFilters />
-        <ListItemLayout className={styles.listFilters}>
-          <ListFilter
-            onChangeFilter={(filteredData) => {
-              // 필터링 된 요소에 맞게 데이터를 불러온다.
-              // const data = getData('필터링된 정보');
-              // setList(data);
-            }}
-          />
-        </ListItemLayout>
         <div className={styles.container}>
-          {list.map((listItem, index) => (
+          <ListItemLayout className={styles.listFilter}>
+            <ListFilter
+              onChangeFilter={(filteredData) => {
+                // 필터링된 데이터 처리 로직
+              }}
+            />
+          </ListItemLayout>
+          {list.map((item) => (
             <ListItem
-              key={index}
-              badges={[
-                {
-                  color: "red",
-                  title: "Bug2",
-                },
-              ]}
+              key={item.id}
+              data={item}
+              checked={checked}
+              onClickCheckBox={() => setChecked((check) => !checked)}
+              badges={item.labels}
             />
           ))}
         </div>
-      </div>
-      <div className={styles.paginationContainer}>
-        <Pagination
-          maxPage={10}
-          currentPage={page}
-          onClickPageButton={(number) => setPage(number)}
-        />
+        <div className={styles.paginationContainer}>
+          <Pagination
+            maxPage={10}
+            currentPage={page}
+            onClickPageButton={(number) => setPage(number)}
+          />
+        </div>
+        <Footer />
       </div>
     </>
   );

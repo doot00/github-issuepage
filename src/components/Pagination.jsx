@@ -17,6 +17,7 @@ export default function Pagination({
       </button>
       {new Array(maxPage).fill(null).map((_, i) => (
         <PageButton
+          key={i + 1}
           number={i + 1}
           onClick={onClickPageButton}
           selected={i + 1 === currentPage} // selected된 값에 따라 페이지가 변경된다.

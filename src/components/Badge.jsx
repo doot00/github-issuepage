@@ -1,9 +1,11 @@
 import styles from "./Badge.module.css";
-import React from "react";
-import cx from "clsx";
 
+// labels = { 객체 정보 }
 
-// red, blue
-export default function Badge({ title, color }) {
-  return <span className={cx(styles.badge, styles[color])}>{title}</span>;
+export default function Badge({ color, name }) {
+  return (
+    <span className={styles.badge} style={{ background: `#${color}` }}>
+      {name}
+    </span>
+  );
 }
